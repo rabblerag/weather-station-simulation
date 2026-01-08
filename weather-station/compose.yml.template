@@ -2,9 +2,14 @@
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-{{ID}}
+    container_name: weather-station-{{ID}}
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_{{ID}}
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-{{ID}}

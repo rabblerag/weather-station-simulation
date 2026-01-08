@@ -3,50 +3,75 @@
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-1
+    container_name: weather-station-1
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_1
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-1
   station-2:
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-2
+    container_name: weather-station-2
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_2
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-2
   station-3:
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-3
+    container_name: weather-station-3
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_3
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-3
   station-4:
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-4
+    container_name: weather-station-4
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_4
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-4
   station-5:
     build:
       context: ./weather-station
       dockerfile: Dockerfile
+    hostname: weather-station-5
+    container_name: weather-station-5
     environment:
-      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
-      - SERVER_PORT=${SERVER_PORT}
+      - SERVER_HOSTNAME
+      - SERVER_PORT
+      - MAX_MSG_LEN
       - STATION_ID=STATION_5
     networks:
-      - stations-net
+      stations-net:
+        aliases:
+          - station-5
 
