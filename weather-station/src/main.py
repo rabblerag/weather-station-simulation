@@ -2,6 +2,10 @@ import time
 import socket
 from os import environ
 import threading as thread
+import json
+
+import sensors
+
 
 server_hostname = environ['SERVER_HOSTNAME']
 server_port = int(environ['SERVER_PORT'])
@@ -14,7 +18,10 @@ def rxThread(sock_id):
     time.sleep(5)
 
 def txThread(sock_id):
-    msg = f"Sending message as {id}"
+    msg = json.dumps({"station_id": id, "timestamp": "2025-01-09T00:00:00", "data": {
+        "temperature": sensors.measure_temp().__next__(), "humidity": sensors.measure_humidity().__next__(),
+        "wind_speed": sensors.measure_wind_speed().__next__()
+    }})
     sock_id.send(msg.encode())
     time.sleep(5*int(id.split("STATION_")[-1]))
 

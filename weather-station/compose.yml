@@ -10,6 +10,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_1
+      - MIN_TEMP
+      - MAX_TEMP
+      - MAX_HUMIDITY
+      - MAX_WIND_SPEED
     networks:
       stations-net:
         aliases:
@@ -25,6 +29,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_2
+      - MIN_TEMP
+      - MAX_TEMP
+      - MAX_HUMIDITY
+      - MAX_WIND_SPEED
     networks:
       stations-net:
         aliases:
@@ -40,6 +48,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_3
+      - MIN_TEMP
+      - MAX_TEMP
+      - MAX_HUMIDITY
+      - MAX_WIND_SPEED
     networks:
       stations-net:
         aliases:
@@ -55,6 +67,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_4
+      - MIN_TEMP
+      - MAX_TEMP
+      - MAX_HUMIDITY
+      - MAX_WIND_SPEED
     networks:
       stations-net:
         aliases:
@@ -70,6 +86,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_5
+      - MIN_TEMP
+      - MAX_TEMP
+      - MAX_HUMIDITY
+      - MAX_WIND_SPEED
     networks:
       stations-net:
         aliases:
