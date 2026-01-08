@@ -1,0 +1,5 @@
+networks:
+  stations-net:
+    name: stations-net
+    driver: bridge
+    internal: true

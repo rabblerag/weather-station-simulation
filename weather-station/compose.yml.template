@@ -1,0 +1,10 @@
+  station-{{ID}}:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_{{ID}}
+    networks:
+      - stations-net

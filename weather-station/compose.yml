@@ -1,0 +1,52 @@
+﻿services:
+  station-1:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_1
+    networks:
+      - stations-net
+  station-2:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_2
+    networks:
+      - stations-net
+  station-3:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_3
+    networks:
+      - stations-net
+  station-4:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_4
+    networks:
+      - stations-net
+  station-5:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_HOSTNAME=${SERVER_HOSTNAME}
+      - SERVER_PORT=${SERVER_PORT}
+      - STATION_ID=STATION_5
+    networks:
+      - stations-net
+
