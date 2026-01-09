@@ -3,3 +3,10 @@ networks:
     name: stations-net
     driver: bridge
     internal: true
+
+secrets:
+  server-secret:
+    environment: SERVER_SECRET
+  station-secrets:
+    environment: STATION_SECRETS
+  

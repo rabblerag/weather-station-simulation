@@ -14,6 +14,8 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - station-1-secret
     networks:
       stations-net:
         aliases:
@@ -33,6 +35,8 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - station-2-secret
     networks:
       stations-net:
         aliases:
@@ -52,6 +56,8 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - station-3-secret
     networks:
       stations-net:
         aliases:
@@ -71,6 +77,8 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - station-4-secret
     networks:
       stations-net:
         aliases:
@@ -90,8 +98,23 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - station-5-secret
     networks:
       stations-net:
         aliases:
           - station-5
+
+
+secrets:
+  station-1-secret:
+    environment: STATION_1_SECRET
+  station-2-secret:
+    environment: STATION_2_SECRET
+  station-3-secret:
+    environment: STATION_3_SECRET
+  station-4-secret:
+    environment: STATION_4_SECRET
+  station-5-secret:
+    environment: STATION_5_SECRET
 

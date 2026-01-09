@@ -4,32 +4,29 @@ from os import environ
 import threading as thread
 import json
 
-import sensors
+import packets
 
+server_hostname : str = environ['SERVER_HOSTNAME']
+server_port : int  = int(environ['SERVER_PORT'])
+max_msg_len : int = int(environ['MAX_MSG_LEN'])
+id : str = environ["STATION_ID"]
 
-server_hostname = environ['SERVER_HOSTNAME']
-server_port = int(environ['SERVER_PORT'])
-max_msg_len = int(environ['MAX_MSG_LEN'])
-id = environ["STATION_ID"]
-
-def rxThread(sock_id):
+def rxThread(sock_id : socket.socket) -> None:
     data = sock_id.recv(max_msg_len).decode()
     print("From server: ", data)
     time.sleep(5)
 
-def txThread(sock_id):
-    msg = json.dumps({"station_id": id, "timestamp": "2025-01-09T00:00:00", "data": {
-        "temperature": sensors.measure_temp().__next__(), "humidity": sensors.measure_humidity().__next__(),
-        "wind_speed": sensors.measure_wind_speed().__next__()
-    }})
-    sock_id.send(msg.encode())
+def txThread(sock_id : socket.socket) -> None:
+    packet = packets.create_packet(requested_data=('temperature', 'humidity', 'wind_speed'))
+    sock_id.send(packet)
     time.sleep(5*int(id.split("STATION_")[-1]))
 
 
 if __name__ == "__main__":
     print(f"Connecting to server with ID {id}...")
 
-    time.sleep(5*int(id.split("STATION_")[-1]))
+
+    time.sleep(5*int(id.split('STATION_')[-1]))
 
     station_socket = socket.socket()
     station_socket.connect((server_hostname, server_port))

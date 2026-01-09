@@ -13,6 +13,9 @@
       - MAX_TEMP
       - MAX_HUMIDITY
       - MAX_WIND_SPEED
+    secrets:
+      - server-secret
+      - station-{{ID}}-secret
     networks:
       stations-net:
         aliases:

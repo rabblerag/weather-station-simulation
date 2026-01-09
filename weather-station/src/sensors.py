@@ -1,8 +1,10 @@
 import random as rand
 from os import environ
 
+from collections.abc import Iterator
 
-def measure_temp():
+
+def measure_temp() -> Iterator[float]:
     min_temp = int(environ["MIN_TEMP"])
     max_temp = int(environ["MAX_TEMP"])
     
@@ -16,7 +18,7 @@ def measure_temp():
         
         yield value
 
-def measure_humidity():
+def measure_humidity() -> Iterator[float]:
     min_humidity = 0.0
     max_humidity = float(environ["MAX_HUMIDITY"])
     
@@ -30,7 +32,7 @@ def measure_humidity():
         
         yield value
 
-def measure_wind_speed():
+def measure_wind_speed() -> Iterator[float]:
     min_wind_speed = 0
     max_wind_speed = int(environ["MAX_WIND_SPEED"])
     

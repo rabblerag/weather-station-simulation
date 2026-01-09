@@ -5,6 +5,9 @@ import threading as thread
 import random as rand
 import string
 
+import packets
+
+
 
 max_stations = int(os.environ['MAX_STATIONS'])
 max_msg_len = int(os.environ["MAX_MSG_LEN"])
@@ -12,13 +15,13 @@ server_hostname = os.environ["HOSTNAME"]
 server_port = int(os.environ["SERVER_PORT"])
 
 
-def rxThread(sock_id, addr):
-    print("Station: ", addr)
-    data = sock_id.recv(max_msg_len)
-    print("From connected user: ", str(data))
+def rxThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
+    data = packets.read_packet(sock_id)
+    if data != None:
+        print("From connected user: ", data)
 
-def txThread(sock_id, addr):
-    msg = ''.join(rand.choices(string.ascii_lowercase))
+def txThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
+    msg = ''.join(rand.choices(string.ascii_lowercase, k=5))
     sock_id.send(msg.encode())
  
 
