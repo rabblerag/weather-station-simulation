@@ -9,10 +9,8 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_{{ID}}
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS={{METRICS}}
+      - METRIC_RANGES={{RANGES}}
     secrets:
       - server-secret
       - station-{{ID}}-secret

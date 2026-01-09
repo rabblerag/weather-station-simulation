@@ -15,10 +15,10 @@ with open(f"/run/secrets/station-{int(id.split('STATION_')[-1])}-secret") as f:
         secret = bytes.fromhex(f.read())
 
 
-def create_packet(requested_data : tuple[str, ...]=('temperature', 'humidity', 'wind_speed')) -> bytes:
+def create_packet(available_metrics : tuple[str, ...]=('temperature', 'humidity', 'wind_speed')) -> bytes:
     timestamp = dt.datetime.now(timezone).isoformat(timespec='seconds')
 
-    data = get_data(requested_data=requested_data)
+    data = get_data(available_metrics)
 
     packet = json.dumps({"station_id": id, 'timestamp': timestamp, 'data': data}, sort_keys=True, separators=(',',':')).encode('utf-8')
 
@@ -34,14 +34,14 @@ def generate_hmac(payload : bytes) -> bytes:
 
     return tag
 
-def get_data(requested_data : tuple[str, ...]=('temperature', 'humidity', 'wind_speed')) -> dict[str, float]:
+def get_data(available_metrics : tuple[str, ...]=('temperature', 'humidity', 'wind_speed')) -> dict[str, float]:
     data = {}
 
-    if 'temperature' in requested_data:
+    if 'temperature' in available_metrics:
         data['temperature'] = next(sensors.measure_temp())
-    if 'humidity' in requested_data:
+    if 'humidity' in available_metrics:
         data['humidity'] = next(sensors.measure_humidity())
-    if 'wind_speed' in requested_data:
+    if 'wind_speed' in available_metrics:
         data['wind_speed'] = next(sensors.measure_wind_speed())
 
     return data

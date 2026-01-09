@@ -10,11 +10,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_1
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS=temperature,humidity,wind_speed
+      - METRIC_RANGES=-10,40|0,1|0,50
     secrets:
+      - server-secret
       - station-1-secret
     networks:
       stations-net:
@@ -31,11 +30,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_2
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS=temperature
+      - METRIC_RANGES=-10,40
     secrets:
+      - server-secret
       - station-2-secret
     networks:
       stations-net:
@@ -52,11 +50,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_3
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS=temperature,wind_speed
+      - METRIC_RANGES=-10,40|0,50
     secrets:
+      - server-secret
       - station-3-secret
     networks:
       stations-net:
@@ -73,11 +70,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_4
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS=temperature,humidity
+      - METRIC_RANGES=-10,40|0,1
     secrets:
+      - server-secret
       - station-4-secret
     networks:
       stations-net:
@@ -94,11 +90,10 @@
       - SERVER_PORT
       - MAX_MSG_LEN
       - STATION_ID=STATION_5
-      - MIN_TEMP
-      - MAX_TEMP
-      - MAX_HUMIDITY
-      - MAX_WIND_SPEED
+      - AVAILABLE_METRICS=temperature,humidity,wind_speed
+      - METRIC_RANGES=-10,40|0,1|0,50
     secrets:
+      - server-secret
       - station-5-secret
     networks:
       stations-net:

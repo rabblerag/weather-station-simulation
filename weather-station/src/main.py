@@ -11,13 +11,15 @@ server_port : int  = int(environ['SERVER_PORT'])
 max_msg_len : int = int(environ['MAX_MSG_LEN'])
 id : str = environ["STATION_ID"]
 
+available_metrics = tuple(environ["AVAILABLE_METRICS"].split(','))
+
 def rxThread(sock_id : socket.socket) -> None:
     data = sock_id.recv(max_msg_len).decode()
     print("From server: ", data)
     time.sleep(5)
 
 def txThread(sock_id : socket.socket) -> None:
-    packet = packets.create_packet(requested_data=('temperature', 'humidity', 'wind_speed'))
+    packet = packets.create_packet(available_metrics)
     sock_id.send(packet)
     time.sleep(5*int(id.split("STATION_")[-1]))
 

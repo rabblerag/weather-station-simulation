@@ -11,6 +11,7 @@ services:
       - MAX_STATIONS
       - MAX_MSG_LEN
       - SERVER_PORT
+      - METRIC_RANGES
       - LOG_LEVEL=info
     secrets:
       - server-secret

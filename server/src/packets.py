@@ -8,10 +8,7 @@ import datetime as dt
 
 timezone = dt.timezone(dt.timedelta(hours=+2.0))
 
-min_temp = float(os.environ["MIN_TEMP"])
-max_temp = float(os.environ["MAX_TEMP"])
-max_humidity = float(os.environ["MAX_HUMIDITY"])
-max_wind_speed = float(os.environ["MAX_WIND_SPEED"])
+(min_temp, max_temp), (min_humidity, max_humidity), (min_wind_speed, max_wind_speed) = tuple(map(lambda x: tuple(map(float, x.split(','))), os.environ["METRIC_RANGES"].split('|')))
 
 with open("/run/secrets/station-secrets") as f:
     station_keys = json.load(f)
@@ -30,7 +27,7 @@ def verify_hmac(payload : bytes, station_id : str, received_hmac : bytes) -> boo
 def read_packet(sock_id : socket.socket) -> dict[str, str | dict[str, float]] | None:
     payload_len = sock_id.recv(4)
 
-    if payload_len != 4:
+    if len(payload_len) != 4:
         print("Invalid length field")
         return None
     
@@ -62,11 +59,11 @@ def read_packet(sock_id : socket.socket) -> dict[str, str | dict[str, float]] | 
             print("Invalid data")
             return None
     if 'humidity' in data:
-        if 0 > data['humidity'] or data['humidity'] > max_humidity:
+        if min_humidity > data['humidity'] or data['humidity'] > max_humidity:
             print("Invalid data")
             return None
     if 'wind_speed' in data:
-        if 0 > data['wind_speed'] or data['wind_speed'] > max_wind_speed:
+        if min_wind_speed > data['wind_speed'] or data['wind_speed'] > max_wind_speed:
             print("Invalid data")
             return None
     

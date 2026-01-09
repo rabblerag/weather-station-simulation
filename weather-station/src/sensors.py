@@ -3,46 +3,47 @@ from os import environ
 
 from collections.abc import Iterator
 
+metrics = environ['AVAILABLE_METRICS'].split(",")
+ranges = tuple(map(lambda x: tuple(map(float, x.split(','))), environ["METRIC_RANGES"].split('|')))
 
-def measure_temp() -> Iterator[float]:
-    min_temp = int(environ["MIN_TEMP"])
-    max_temp = int(environ["MAX_TEMP"])
-    
-    mu = (min_temp + max_temp)/2
-    sigma = (max_temp - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
+for metric, metric_range in zip(metrics, ranges):
+    if metric == "temperature":
+        min_temp, max_temp = metric_range
 
-    while True:
-        value = round(rand.gauss(mu, sigma), 1)
+        def measure_temp() -> Iterator[float]:    
+            mu = (min_temp + max_temp)/2
+            sigma = (max_temp - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
 
-        if min_temp > value  or value > max_temp: continue
-        
-        yield value
+            while True:
+                value = round(rand.gauss(mu, sigma), 1)
 
-def measure_humidity() -> Iterator[float]:
-    min_humidity = 0.0
-    max_humidity = float(environ["MAX_HUMIDITY"])
-    
-    mu = (min_humidity + max_humidity)/2
-    sigma = (max_humidity - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
+                if min_temp > value  or value > max_temp: continue
+                
+                yield value
+    if metric == "humidity":
+        min_humidity, max_humidity = metric_range
 
-    while True:
-        value = round(rand.gauss(mu, sigma), 2)
+        def measure_humidity() -> Iterator[float]:
+            mu = (min_humidity + max_humidity)/2
+            sigma = (max_humidity - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
 
-        if min_humidity > value  or value > max_humidity: continue
-        
-        yield value
+            while True:
+                value = round(rand.gauss(mu, sigma), 2)
 
-def measure_wind_speed() -> Iterator[float]:
-    min_wind_speed = 0
-    max_wind_speed = int(environ["MAX_WIND_SPEED"])
-    
-    mu = (min_wind_speed + max_wind_speed)/2
-    sigma = (max_wind_speed - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
+                if min_humidity > value  or value > max_humidity: continue
+                
+                yield value
+    if metric == "wind_speed":
+        min_wind_speed, max_wind_speed = metric_range
 
-    while True:
-        value = round(rand.gauss(mu, sigma), 0)
+        def measure_wind_speed() -> Iterator[float]:
+            mu = (min_wind_speed + max_wind_speed)/2
+            sigma = (max_wind_speed - mu) / 3     # 99% of values in a gaussian are in an interval +- 3σ from the mean
 
-        if min_wind_speed > value  or value > max_wind_speed: continue
-        
-        yield value
+            while True:
+                value = round(rand.gauss(mu, sigma), 0)
+
+                if min_wind_speed > value  or value > max_wind_speed: continue
+                
+                yield value
 
