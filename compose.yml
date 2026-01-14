@@ -10,3 +10,6 @@ secrets:
   station-secrets:
     environment: STATION_SECRETS
   
+volumes:
+  logs:
+    name: "logs"

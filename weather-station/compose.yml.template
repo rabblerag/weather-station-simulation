@@ -8,7 +8,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_{{ID}}
+      - STATION_ID=station_{{ID}}
       - AVAILABLE_METRICS={{METRICS}}
       - METRIC_RANGES={{RANGES}}
     secrets:

@@ -10,9 +10,12 @@ services:
     environment:
       - MAX_STATIONS
       - MAX_MSG_LEN
+      - MAX_TIMEOUT=5.0
       - SERVER_PORT
       - METRIC_RANGES
       - LOG_LEVEL=info
+    volumes:
+      - logs:/app/logs:rw
     secrets:
       - server-secret
       - station-secrets

@@ -5,13 +5,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-RUN useradd -m appuser
-WORKDIR /server
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        build-essential \
     && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m appuser
+
+WORKDIR /app/server
 
 COPY requirements.txt .
 

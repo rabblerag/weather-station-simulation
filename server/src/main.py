@@ -6,7 +6,7 @@ import random as rand
 import string
 
 import packets
-
+import logger
 
 
 max_stations = int(os.environ['MAX_STATIONS'])
@@ -16,9 +16,14 @@ server_port = int(os.environ["SERVER_PORT"])
 
 
 def rxThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
-    data = packets.read_packet(sock_id)
-    if data != None:
+    try:
+        data = packets.read_packet(sock_id)
         print("From connected user: ", data)
+        logger.create_log(addr, data, True)
+    except Exception as e:
+        exception_name = str(e.__class__).split("'")[1].split(".")[1]
+        error_msg = exception_name + ": " + str(e)
+        logger.create_log(addr, error_msg, False)
 
 def txThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
     msg = ''.join(rand.choices(string.ascii_lowercase, k=5))
