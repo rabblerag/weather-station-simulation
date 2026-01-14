@@ -11,7 +11,7 @@ timezone = dt.timezone(dt.timedelta(hours=+2.0))
 
 id = os.environ['STATION_ID']
 
-with open(f"/run/secrets/station-{int(id.split('STATION_')[-1])}-secret") as f:
+with open(f"/run/secrets/station-{int(id.split('station_')[-1])}-secret") as f:
         secret = bytes.fromhex(f.read())
 
 

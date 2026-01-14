@@ -10,7 +10,7 @@ def create_log(addr : tuple[str, int], value : str, isValid: bool) -> None:
     log = {
         "address": f"{addr[0]}:{addr[1]}",
         "timestamp": dt.datetime.now(timezone).isoformat(),
-        "data": json.loads(value) if isValid else None,
+        "payload": json.loads(value) if isValid else None,
         "error": None if isValid else value
     }
 

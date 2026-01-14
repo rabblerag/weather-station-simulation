@@ -47,7 +47,7 @@ for ($i = 1; $i -le $env:MAX_STATIONS; $i++) {
     $temp_key = (New-Object System.Security.Cryptography.HMACSHA256).Key
     $hex_key = ($temp_key | ForEach-Object ToString X2) -join ''
 
-    $station_secrets["STATION_$i"] = $hex_key
+    $station_secrets["station_$i"] = $hex_key
 
     [System.Environment]::SetEnvironmentVariable("STATION_$i`_SECRET", $hex_key)
 

@@ -13,3 +13,5 @@ secrets:
 volumes:
   logs:
     name: "logs"
+  data-db:
+    name: "data-db"

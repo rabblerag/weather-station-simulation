@@ -9,7 +9,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_1
+      - STATION_ID=station_1
       - AVAILABLE_METRICS=temperature,humidity,wind_speed
       - METRIC_RANGES=-10,40|0,1|0,50
     secrets:
@@ -29,7 +29,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_2
+      - STATION_ID=station_2
       - AVAILABLE_METRICS=temperature
       - METRIC_RANGES=-10,40
     secrets:
@@ -49,7 +49,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_3
+      - STATION_ID=station_3
       - AVAILABLE_METRICS=temperature,wind_speed
       - METRIC_RANGES=-10,40|0,50
     secrets:
@@ -69,7 +69,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_4
+      - STATION_ID=station_4
       - AVAILABLE_METRICS=temperature,humidity
       - METRIC_RANGES=-10,40|0,1
     secrets:
@@ -89,7 +89,7 @@
       - SERVER_HOSTNAME
       - SERVER_PORT
       - MAX_MSG_LEN
-      - STATION_ID=STATION_5
+      - STATION_ID=station_5
       - AVAILABLE_METRICS=temperature,humidity,wind_speed
       - METRIC_RANGES=-10,40|0,1|0,50
     secrets:

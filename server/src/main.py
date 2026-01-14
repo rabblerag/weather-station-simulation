@@ -4,9 +4,11 @@ import socket
 import threading as thread
 import random as rand
 import string
+import json
 
 import packets
 import logger
+import database
 
 
 max_stations = int(os.environ['MAX_STATIONS'])
@@ -18,8 +20,9 @@ server_port = int(os.environ["SERVER_PORT"])
 def rxThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
     try:
         data = packets.read_packet(sock_id)
-        print("From connected user: ", data)
         logger.create_log(addr, data, True)
+        packet = json.loads(data)
+        database.store_data(packet["station_id"], packet["timestamp"], packet["data"])
     except Exception as e:
         exception_name = str(e.__class__).split("'")[1].split(".")[1]
         error_msg = exception_name + ": " + str(e)

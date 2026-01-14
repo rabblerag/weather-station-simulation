@@ -8,6 +8,7 @@ services:
     # ports:
     #   - "8080:8080"
     environment:
+      - DB_PATH
       - MAX_STATIONS
       - MAX_MSG_LEN
       - MAX_TIMEOUT=5.0
@@ -16,6 +17,7 @@ services:
       - LOG_LEVEL=info
     volumes:
       - logs:/app/logs:rw
+      - data-db:${DB_PATH}:rw
     secrets:
       - server-secret
       - station-secrets

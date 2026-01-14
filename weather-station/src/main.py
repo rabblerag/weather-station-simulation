@@ -21,14 +21,14 @@ def rxThread(sock_id : socket.socket) -> None:
 def txThread(sock_id : socket.socket) -> None:
     packet = packets.create_packet(available_metrics)
     sock_id.send(packet)
-    time.sleep(5*int(id.split("STATION_")[-1]))
+    time.sleep(5*int(id.split("station_")[-1]))
 
 
 if __name__ == "__main__":
     print(f"Connecting to server with ID {id}...")
 
 
-    time.sleep(5*int(id.split('STATION_')[-1]))
+    time.sleep(5*int(id.split('station_')[-1]))
 
     station_socket = socket.socket()
     station_socket.connect((server_hostname, server_port))
