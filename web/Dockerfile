@@ -12,22 +12,21 @@ RUN apt-get update \
 
 RUN useradd -m appuser
 
-RUN mkdir -p /app/logs
-RUN chown appuser:appuser /app/logs
-VOLUME [ "/app/logs" ]
-
 RUN mkdir -p /app/database
 RUN chown -R appuser:appuser /app/database
 VOLUME [ "/app/database" ]
 
-WORKDIR /app/server
+WORKDIR /app/web
 
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./src .
+COPY ./templates ./templates
 
 USER appuser
 
-CMD ["python", "main.py"]
+EXPOSE 8080
+
+CMD ["python", "app.py"]

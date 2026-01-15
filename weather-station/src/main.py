@@ -10,6 +10,7 @@ server_hostname : str = environ['SERVER_HOSTNAME']
 server_port : int  = int(environ['SERVER_PORT'])
 max_msg_len : int = int(environ['MAX_MSG_LEN'])
 id : str = environ["STATION_ID"]
+msg_interval : int = int(environ["msg_interval"])
 
 available_metrics = tuple(environ["AVAILABLE_METRICS"].split(','))
 
@@ -19,9 +20,10 @@ def rxThread(sock_id : socket.socket) -> None:
     time.sleep(5)
 
 def txThread(sock_id : socket.socket) -> None:
-    packet = packets.create_packet(available_metrics)
-    sock_id.send(packet)
-    time.sleep(5*int(id.split("station_")[-1]))
+    while True:
+        packet = packets.create_packet(available_metrics)
+        sock_id.send(packet)
+        time.sleep(msg_interval)
 
 
 if __name__ == "__main__":

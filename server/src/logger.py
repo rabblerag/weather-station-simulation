@@ -8,8 +8,8 @@ timezone = dt.timezone(dt.timedelta(hours=+2.0))
 
 def create_log(addr : tuple[str, int], value : str, isValid: bool) -> None:
     log = {
-        "address": f"{addr[0]}:{addr[1]}",
-        "timestamp": dt.datetime.now(timezone).isoformat(),
+        "sender": f"{addr[0]}:{addr[1]}",
+        "logged_at": dt.datetime.now(timezone).isoformat(),
         "payload": json.loads(value) if isValid else None,
         "error": None if isValid else value
     }

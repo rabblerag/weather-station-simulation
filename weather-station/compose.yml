@@ -12,6 +12,7 @@
       - STATION_ID=station_1
       - AVAILABLE_METRICS=temperature,humidity,wind_speed
       - METRIC_RANGES=-10,40|0,1|0,50
+      - SLEEP_DURATION=15
     secrets:
       - server-secret
       - station-1-secret
@@ -32,6 +33,7 @@
       - STATION_ID=station_2
       - AVAILABLE_METRICS=temperature
       - METRIC_RANGES=-10,40
+      - SLEEP_DURATION=60
     secrets:
       - server-secret
       - station-2-secret
@@ -52,6 +54,7 @@
       - STATION_ID=station_3
       - AVAILABLE_METRICS=temperature,wind_speed
       - METRIC_RANGES=-10,40|0,50
+      - SLEEP_DURATION=45
     secrets:
       - server-secret
       - station-3-secret
@@ -72,6 +75,7 @@
       - STATION_ID=station_4
       - AVAILABLE_METRICS=temperature,humidity
       - METRIC_RANGES=-10,40|0,1
+      - SLEEP_DURATION=30
     secrets:
       - server-secret
       - station-4-secret
@@ -92,6 +96,7 @@
       - STATION_ID=station_5
       - AVAILABLE_METRICS=temperature,humidity,wind_speed
       - METRIC_RANGES=-10,40|0,1|0,50
+      - SLEEP_DURATION=15
     secrets:
       - server-secret
       - station-5-secret

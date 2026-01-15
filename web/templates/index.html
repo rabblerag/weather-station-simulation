@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Weather metrics</title></head>
+<body>
+    <h1>Data from Database</h1>
+    <ul>
+    {% for metric in metrics %}
+        <li>{{ metric.station_id.replace("_", " ").capitalize() }} ({{ metric.timestamp }}):
+            <ul>
+            {% for data in metric.data %}
+                <li>
+                    {% if data == "humidity" %}
+                        Humidity: {{ (metric.data[data]*100)|int }}%
+                    {% elif data == "temperature" %}
+                        Temperature: {{ metric.data[data] }} °C
+                    {% elif data == "wind_speed" %}
+                        Wind speed: {{ metric.data[data] }} km/h
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

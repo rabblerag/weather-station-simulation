@@ -11,6 +11,7 @@
       - STATION_ID=station_{{ID}}
       - AVAILABLE_METRICS={{METRICS}}
       - METRIC_RANGES={{RANGES}}
+      - MSG_INTERVAL={{INTERVAL}}
     secrets:
       - server-secret
       - station-{{ID}}-secret

@@ -18,15 +18,21 @@ server_port = int(os.environ["SERVER_PORT"])
 
 
 def rxThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
-    try:
-        data = packets.read_packet(sock_id)
-        logger.create_log(addr, data, True)
-        packet = json.loads(data)
-        database.store_data(packet["station_id"], packet["timestamp"], packet["data"])
-    except Exception as e:
-        exception_name = str(e.__class__).split("'")[1].split(".")[1]
-        error_msg = exception_name + ": " + str(e)
-        logger.create_log(addr, error_msg, False)
+    while True:
+        try:
+            data = packets.read_packet(sock_id)
+            packet = json.loads(data)
+            log_data = {
+                "timestamp": packet["timestamp"],
+                "data": packet["data"]
+            }
+            logger.create_log((packet["station_id"], addr[1]), json.dumps(log_data), True)  # Store station hostname instead of IP
+            database.store_data(packet["station_id"], packet["timestamp"], packet["data"])
+        except Exception as e:
+            exception_name = str(e.__class__).split("'")[1].split(".")[1]
+            error_msg = exception_name + ": " + str(e)
+            logger.create_log(addr, error_msg, False)
+        time.sleep(5)
 
 def txThread(sock_id : socket.socket, addr : tuple[str, int]) -> None:
     msg = ''.join(rand.choices(string.ascii_lowercase, k=5))

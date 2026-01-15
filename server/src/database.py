@@ -28,5 +28,5 @@ def get_db():
 
 def store_data(station_id : str, timestamp : str, data : dict[str, dict[str, float]]):
     with get_db() as conn:
-        conn.execute("INSERT INTO metrics (station_id, timestamp, data) VALUES (?, ?, ?)", (station_id, timestamp, json.dumps(data)))
+        conn.execute("INSERT INTO metrics (station_id, timestamp, data) VALUES (?, ?, json_insert(?))", (station_id, timestamp, json.dumps(data)))
     
