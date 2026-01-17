@@ -17,3 +17,12 @@ class Metric(Base):
     def __repr__(self):
         return f"Metric(id={self.id!r}, station_id={self.station_id!r}, timestamp={self.timestamp!r}, data={self.data!r})"
 
+class Station(Base):
+    __tablename__ = "stations"
+
+    id : Mapped[int] = mapped_column(primary_key=True)
+    station_id : Mapped[str] = mapped_column(String(16))
+
+    def __repr__(self):
+        return f"Station(id={self.id!r}, station_id={self.station_id!r})"
+

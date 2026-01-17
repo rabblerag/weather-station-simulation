@@ -19,3 +19,5 @@
       stations-net:
         aliases:
           - station-{{ID}}
+    depends_on:
+      - server

@@ -48,6 +48,8 @@ if __name__ == "__main__":
     server_socket.listen(max_stations)
 
     connected = 0
+    
+    database.add_stations_to_db()
 
     while connected < max_stations :
         conn, addr = server_socket.accept()
@@ -59,6 +61,7 @@ if __name__ == "__main__":
         threadTX = thread.Thread(target=txThread, args=(conn, addr))
         threadTX.daemon = True
         threadTX.start()
+
 
     while True:
         time.sleep(1)

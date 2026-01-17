@@ -11,3 +11,5 @@ services:
       - DB_PATH
     volumes:
       - data-db:${DB_PATH}:ro
+    depends_on:
+      - server

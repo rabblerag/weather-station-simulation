@@ -5,6 +5,27 @@ import json
 from contextlib import contextmanager
 
 db_path = os.environ["DB_PATH"] + "data.db"
+max_stations = int(os.environ["MAX_STATIONS"])
+
+def add_stations_to_db():
+    conn = sqlite3.connect(db_path, check_same_thread=False)
+    conn.execute("DROP TABLE IF EXISTS stations")
+    conn.execute("""CREATE TABLE stations(
+                    id INTEGER PRIMARY KEY,
+                    station_id TEXT
+                    )"""
+    )
+
+    for i in range(max_stations):
+        conn.execute("INSERT INTO stations (station_id) VALUES (?)", (f"station_{i+1}",))
+    
+    try:
+        conn.commit()
+    except:
+        conn.rollback()
+    finally:
+        conn.close()
+
 
 @contextmanager
 def get_db():

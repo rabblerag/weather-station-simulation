@@ -10,7 +10,7 @@ server_hostname : str = environ['SERVER_HOSTNAME']
 server_port : int  = int(environ['SERVER_PORT'])
 max_msg_len : int = int(environ['MAX_MSG_LEN'])
 id : str = environ["STATION_ID"]
-msg_interval : int = int(environ["msg_interval"])
+msg_interval : int = int(environ["MSG_INTERVAL"])
 
 available_metrics = tuple(environ["AVAILABLE_METRICS"].split(','))
 
