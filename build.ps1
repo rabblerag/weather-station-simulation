@@ -20,6 +20,7 @@ $station_secrets = @{}
 
 for ($i = 1; $i -le $env:MAX_STATIONS; $i++) {
 
+    # Change or add more configurations here
     if ($i -eq 2){
         $metrics = "temperature"
         $ranges = "$MIN_TEMP,$MAX_TEMP"

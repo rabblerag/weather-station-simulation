@@ -5,13 +5,11 @@ services:
       dockerfile: Dockerfile
     hostname: ${SERVER_HOSTNAME}
     container_name: ${SERVER_HOSTNAME}
-    # ports:
-    #   - "8080:8080"
     environment:
       - DB_PATH
       - MAX_STATIONS
       - MAX_MSG_LEN
-      - MAX_TIMEOUT=5.0
+      - MAX_TIMEOUT
       - SERVER_PORT
       - METRIC_RANGES
       - LOG_LEVEL=info

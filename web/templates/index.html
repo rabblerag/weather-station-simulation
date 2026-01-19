@@ -3,7 +3,7 @@
 
 
 <head>
-    <style>
+<style>
 .table_component {
     overflow: auto;
     width: 100%;
@@ -38,7 +38,7 @@
     padding: 5px;
 }
 </style>
-    <title>Weather metrics</title>
+<title>Weather metrics</title>
 </head>
 <body>
 
@@ -72,13 +72,11 @@
             <label>End:</label>
             <input type="datetime-local" name="end" step="1" min="2026-01-16T00:00:00" value="{{ end_time }}">
         </fieldset>
-    </label>
-    
-    
+    </label>    
 </form>
 <form action="/" id="clear_data"></form>
 
-    
+
 {% set query_params = request.args.to_dict(flat=False).copy() %}
 {% if query_params.pop('page', None) is none %}
 {% endif %}
@@ -100,7 +98,7 @@
     <button type="submit" form="get_data" style="display: inline-block; padding: 10px 15px; margin: 0 5px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">Search</button>
     <button type="submit" form="clear_data" style="display: inline-block; padding: 10px 15px; margin: 0 5px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">Clear</button>
     
-    {% if (page+1) <= (all_data/per_page)|round(0, "ceil")|int %}
+    {% if (page+1) < (all_data/per_page)|round(0, "ceil")|int %}
         <a href="{{ query_string }}&page={{ page+1 }}" 
             style="display: inline-block; padding: 10px 15px; margin: 0 5px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
             Next →
@@ -185,7 +183,7 @@
         </button>
     {% endif %}
 
-    {% if (page+1) <= (all_data/per_page)|round(0, "ceil")|int %}
+    {% if (page+1) < (all_data/per_page)|round(0, "ceil")|int %}
         <a href="{{ query_string }}&page={{ page+1 }}" 
             style="display: inline-block; padding: 10px 15px; margin: 0 5px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
             Next →

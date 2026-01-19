@@ -22,6 +22,7 @@ class Station(Base):
 
     id : Mapped[int] = mapped_column(primary_key=True)
     station_id : Mapped[str] = mapped_column(String(16))
+    first_connected : Mapped[str] = mapped_column(TIMESTAMP(True))
 
     def __repr__(self):
         return f"Station(id={self.id!r}, station_id={self.station_id!r})"

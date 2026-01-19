@@ -29,5 +29,5 @@ class ClientTimeoutError(Exception):
 
 
 class ConnectionClosedError(Exception):
-    """Raised if length field is 0. This means the station has disconnected"""
+    """Raised if length field is 0. This means the server has disconnected"""
     pass

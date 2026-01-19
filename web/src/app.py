@@ -23,7 +23,7 @@ conn.begin()
 
 @app.route("/")
 def index():
-    stations = session.execute(select(models.Station.station_id)).scalars().all()
+    stations = session.execute(select(models.Station.station_id).order_by(models.Station.station_id)).scalars().all()
 
     page = request.args.get("page")
     if page == None:

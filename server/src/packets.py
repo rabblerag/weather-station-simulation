@@ -9,6 +9,7 @@ import datetime as dt
 import exceptions
 
 max_timeout = float(os.environ["MAX_TIMEOUT"])
+server_hostname = os.environ["HOSTNAME"]
 
 timezone = dt.timezone(dt.timedelta(hours=+2.0))
 
@@ -16,6 +17,9 @@ timezone = dt.timezone(dt.timedelta(hours=+2.0))
 
 with open("/run/secrets/station-secrets") as f:
     station_keys = json.load(f)
+    
+with open("/run/secrets/server-secret") as f:
+    server_key = bytes.fromhex(f.read())
 
 def verify_hmac(payload : bytes, station_id : str, received_hmac : bytes) -> bool:
     try:
@@ -27,9 +31,12 @@ def verify_hmac(payload : bytes, station_id : str, received_hmac : bytes) -> boo
     return hmac.compare_digest(calculated_hmac, received_hmac)
 
 
-def read_packet(sock_id : socket.socket) -> str:
+def read_packet(sock_id : socket.socket, has_data : bool = True) -> str:
     sock_id.settimeout(None)
     payload_len = sock_id.recv(4)
+
+    if len(payload_len) == 0:
+        raise exceptions.ConnectionClosedError("Connection was closed")
 
     if len(payload_len) != 4:
         raise exceptions.MissingHeaderFields("Invalid length field")
@@ -54,25 +61,43 @@ def read_packet(sock_id : socket.socket) -> str:
     if current_time - msg_time > dt.timedelta(seconds=max_timeout):
         raise exceptions.OldTimestampError("Message timestamp too old")
 
-    data = payload['data']
+    if has_data:
+        data = payload['data']
 
-    if 'temperature' in data:
-        if min_temp > data['temperature'] or data['temperature'] > max_temp:
-            raise exceptions.MetricRangeError("Temperature metric outside range")
-    if 'humidity' in data:
-        if min_humidity > data['humidity'] or data['humidity'] > max_humidity:
-            raise exceptions.MetricRangeError("Temperature metric outside range")
-    if 'wind_speed' in data:
-        if min_wind_speed > data['wind_speed'] or data['wind_speed'] > max_wind_speed:
-            raise exceptions.MetricRangeError("Temperature metric outside range")
+        if 'temperature' in data:
+            if min_temp > data['temperature'] or data['temperature'] > max_temp:
+                raise exceptions.MetricRangeError("Temperature metric outside range")
+        if 'humidity' in data:
+            if min_humidity > data['humidity'] or data['humidity'] > max_humidity:
+                raise exceptions.MetricRangeError("Temperature metric outside range")
+        if 'wind_speed' in data:
+            if min_wind_speed > data['wind_speed'] or data['wind_speed'] > max_wind_speed:
+                raise exceptions.MetricRangeError("Temperature metric outside range")
+    
     try:
         received_hmac = sock_id.recv(32)
     except TimeoutError as e:
         raise exceptions.ClientTimeoutError("HMAC not received following payload") from e
 
     if verify_hmac(raw_payload, payload["station_id"], received_hmac):
-        # print("Message authenticated")
         return json.dumps(payload)
     else:
         raise exceptions.InvalidHMACError("Message doesn't match signature")
 
+
+def create_packet(error : str | None) -> bytes:
+    timestamp = dt.datetime.now(timezone).isoformat(timespec='seconds')
+
+    packet = json.dumps({"station_id": server_hostname, 'timestamp': timestamp, 'error': error}, sort_keys=True, separators=(',',':')).encode('utf-8')
+
+    packet = struct.pack('>I', len(packet)) + packet
+
+    packet += generate_hmac(packet[4:])
+
+    return packet
+
+
+def generate_hmac(payload : bytes) -> bytes:
+    tag = hmac.new(server_key, payload, hashlib.sha256).digest()
+
+    return tag
